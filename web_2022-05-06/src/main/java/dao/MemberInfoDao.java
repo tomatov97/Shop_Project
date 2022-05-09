@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import etc.Database;
@@ -40,5 +41,30 @@ public class MemberInfoDao {
 			db.closePstmt(pstmt);
 			db.closeConnection(conn);
 		}
+	}
+	
+	public void selectMemberInfo(MemberInfo memberInfo) {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		MemberInfo selectedMember = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM memberInfo WHERE id=? or name=? or email=?";
+			pstmt.setString(1, memberInfo.getId());
+			pstmt.setString(2, memberInfo.getPw());
+			pstmt.setString(3, memberInfo.getName());
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 }

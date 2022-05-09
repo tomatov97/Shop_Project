@@ -38,18 +38,13 @@ public class Validator {
 		// 길이와 구성 체크 (규칙 이외의 것이 들어가있는지..)
 		String regId = "^[a-zA-Z0-9]{4,10}$";
 		boolean correctId = id.matches(regId);
-		if (!correctId) { return false; }
+		if (!correctId) return false;
 		
 		// 필수 포함 요소 포함 여부 체크
-		if (!id.matches(".*[a-z].*")) {
-			return false;
-		} else if (!id.matches(".*[A-Z].*")) {
-			return false;
-		} else if (!id.matches(".*[0-9].*")) {
-			return false;
-		} else {
-			return true;
-		}
+		if 		(!id.matches(".*[a-z].*")) 	return false;
+		else if (!id.matches(".*[A-Z].*")) 	return false;
+		else if (!id.matches(".*[0-9].*"))	return false;
+		else return true;
 	}
 	
 	public boolean pwValidator(String pw) {
@@ -78,7 +73,7 @@ public class Validator {
 		*/
 		
 		// 길이와 구성 체크 (규칙 이외의 것이 들어가있는지..)
-		String regPw = "^[a-zA-Z0-9]{8,16}$";
+		String regPw = "^[a-zA-Z0-9]{6,16}$";
 		boolean correctPw = pw.matches(regPw);
 		if (!correctPw) { return false; }
 		
