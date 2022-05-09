@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.filters.ExpiresFilter.XHttpServletResponse;
+
+import util.Validator;
 import vo.MemberInfo;
 
 /**
@@ -30,16 +33,32 @@ public class JoinController extends HttpServlet {
 		
 		
 		// 2. 전달받은 값을 검증
-		
-		/* 다음주에 validator 완성하고 주석 풀 예정
+
 		Validator validator = new Validator();
-		
-		boolean correctId = validator.idValidator(id);		
-		if (correctId) {
+				
+		if (!validator.idValidator(id)) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return;
-		}
-		*/
+		} else if (!validator.pwValidator(pw)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else if (!pw.equals(pwchk)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else if (!validator.nameValidator(name)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else if (!validator.telValidator(tel)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else if (!validator.addrValidator(addr)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else if (!validator.emailValidator(email)) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		} else {response.setStatus(HttpServletResponse.SC_OK);}
+
 		
 		System.out.println("id = " + id);
 		System.out.println("pw = " + pw);
