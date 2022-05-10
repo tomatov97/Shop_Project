@@ -1,6 +1,7 @@
 package member;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
@@ -60,17 +61,20 @@ public class JoinController extends HttpServlet {
 			
 			// 4. 새로운 회원의 정보를 DB에 저장한다
 			MemberService service = new MemberService();
-			int status = service.join(newMemberInfo);
+			if (service.isAlreadyIdorTelorEmail(newMemberInfo)) response.setStatus(HttpServletResponse.SC_CONFLICT);
+			else {
+				// 5-1. 회원 가입에 성공했을 경우 성공 시그널 보냄
+				int status = service.join(newMemberInfo);
+				response.setStatus(status);
+			}
 			
-			// 5-1. 회원 가입에 성공했을 경우 성공 시그널 보냄
 			
 			// 5-2. 회원 가입에 실패했을 경우 실패 시그널 보냄
 			//  - 아이디나, 이메일, 연락처가 이미 사용 중일 때 : 409
 			//  - 파라미터가 규칙에 맞지 않을 때 : 400
-			
-			response.setStatus(status);
+
 		} catch (BadParameterException e) {
-			response.setStatus(XHttpServletResponse.SC_BAD_REQUEST);
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
 		
 	}
