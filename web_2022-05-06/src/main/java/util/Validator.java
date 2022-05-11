@@ -147,4 +147,30 @@ public class Validator {
 		*/
 	}
 	
+	public boolean productNameValidator(String productName) {
+		if (productName.length() <= 30) return true;
+		else return false;
+	}
+	
+	public boolean categoryValidator(String category) {
+		String[] categoryList = {"스마트폰", "테블릿", "노트북"};
+		for (String categ : categoryList) {
+			if (category.equals(categ)) return true;				
+		}
+		return false;
+	}
+	
+	public boolean stockValidator(int stock) {
+		if (stock > 0) return true;
+		else return false;
+	}
+	
+	public boolean priceValidator(int price) {
+		if (price > 0) return true;
+		else return false;
+	}
+	
+	public boolean productImgValidator(String productImg) {
+		return false;
+	}
 }
