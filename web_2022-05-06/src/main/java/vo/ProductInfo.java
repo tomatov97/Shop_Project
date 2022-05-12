@@ -1,5 +1,7 @@
 package vo;
 
+import java.time.LocalDateTime;
+
 public class ProductInfo {
 	int productId;
 	String productName;
@@ -7,12 +9,13 @@ public class ProductInfo {
 	int stock;
 	int price;
 	String productImg;
+	LocalDateTime insertDate;
 	
-	public ProductInfo(String productName, String category, int stock, int price, String productImg) {
-		this(0, productName, category, stock, price, productImg);
+	public ProductInfo(String productName, String category, int stock, int price, String productImg, LocalDateTime insertDate) {
+		this(0, productName, category, stock, price, productImg, insertDate);
 	}
 	
-	public ProductInfo(int productId, String productName, String category, int stock, int price, String productImg) {
+	public ProductInfo(int productId, String productName, String category, int stock, int price, String productImg, LocalDateTime insertDate) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -20,8 +23,15 @@ public class ProductInfo {
 		this.stock = stock;
 		this.price = price;
 		this.productImg = productImg;
+		this.insertDate = insertDate;
 	}
-
+	
+	public LocalDateTime getInsertDate() {
+		return insertDate;
+	}
+	public void setInsertDate(LocalDateTime insertDate) {
+		this.insertDate = insertDate;
+	}
 	public int getProductId() {
 		return productId;
 	}

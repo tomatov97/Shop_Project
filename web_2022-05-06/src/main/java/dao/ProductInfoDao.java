@@ -22,7 +22,7 @@ public class ProductInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "INSERT INTO productInfo(`productName`, `category`, `stock`, `price`, `productImg`) VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO productInfo(`productName`, `category`, `stock`, `price`, `productImg`, `insertDate`) VALUES(?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, newProductInfo.getProductName());
@@ -30,6 +30,7 @@ public class ProductInfoDao {
 			pstmt.setInt(3, newProductInfo.getStock());
 			pstmt.setInt(4, newProductInfo.getPrice());
 			pstmt.setString(5, newProductInfo.getProductImg());
+			pstmt.setString(6, newProductInfo.getInsertDate().toString());
 			
 			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
 			int count = pstmt.executeUpdate();
@@ -66,8 +67,13 @@ public class ProductInfoDao {
 				int stock = rs.getInt("stock");
 				int price = rs.getInt("price");
 				String productImg = rs.getString("productImg");
+				String t_insertDate = rs.getString("insertDate");
+				
+				t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
+				t_insertDate = t_insertDate.replace(' ', 'T');
+				LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
 
-				productInfo = new ProductInfo(productId, productName, category, stock, price, productImg);
+				productInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
 			}
 			
 		} catch (SQLException e) {
@@ -141,10 +147,13 @@ public class ProductInfoDao {
 		List<ProductInfo> ProductInfoList = new ArrayList<>();
 		
 		try {
-			String sql = "SELECT * FROM productInfo ORDER BY productId DESC LIMIT ?, 5 ";
+			String sql = "SELECT * FROM productInfo ORDER BY productId DESC LIMIT ?, ? ";
+			int amountPerPage = 10;
+			int startIndex = (pageNumber-1)*amountPerPage;
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, (pageNumber-1)*5);
+			pstmt.setInt(1, startIndex);
+			pstmt.setInt(2, amountPerPage);
 			
 			rs = pstmt.executeQuery();
 			
@@ -155,8 +164,13 @@ public class ProductInfoDao {
 				int stock = rs.getInt("stock");
 				int price = rs.getInt("price");
 				String productImg = rs.getString("productImg");
+				String t_insertDate = rs.getString("insertDate");
 				
-				ProductInfo nthProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg);
+				t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
+				t_insertDate = t_insertDate.replace(' ', 'T');
+				LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
+				
+				ProductInfo nthProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
 				
 				ProductInfoList.add(nthProductInfo);
 			}
@@ -199,5 +213,30 @@ public class ProductInfoDao {
 		}
 		
 		return amount;		
+	}
+	
+	public int decreaseStock(int id) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 3. 쿼리 작성
+			String sql = "UPDATE productInfo SET stock=stock-1 WHERE productId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+					
+			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+			int count = pstmt.executeUpdate();
+			if (count == 1) return 200;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return 400;
 	}
 }

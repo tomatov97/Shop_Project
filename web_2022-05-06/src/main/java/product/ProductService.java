@@ -46,7 +46,19 @@ public class ProductService {
 		String data = null;
 		
 		if(productInfo != null) {
-			data = "{\"productName\": \"" + productInfo.getProductName() + "\", \"category\":\"" + productInfo.getCategory()+ "\", \"stock\":\"" + productInfo.getStock()+"\", \"price\":\"" + productInfo.getPrice()+"\", \"productImg\":\"" + productInfo.getProductImg()+"\"}";
+			data = "{\"productName\": \"(1)\", \"category\":\"(2)\", \"stock\":\"(3)\", \"price\":\"(4)\", \"productImg\":\"(5)\"}";
+			data = data.replace("(1)", productInfo.getProductName());
+			data = data.replace("(2)", productInfo.getCategory());
+			data = data.replace("(3)", productInfo.getStock()+""); // String.valueOf() : 다른 데이터 타입을 문자열화. 그냥 데이터 + "" (빈문자열)로 문자열화 할 수도 있음 
+			data = data.replace("(4)", productInfo.getPrice()+"");
+			
+			if (productInfo.getProductImg()==null) {
+				data = data.replace("(5)", "");
+			} else {
+				data = data.replace("(5)", productInfo.getProductImg());
+			}
+			
+			// data = "{\"productName\": \"" + productInfo.getProductName() + "\", \"category\":\"" + productInfo.getCategory()+ "\", \"stock\":\"" + productInfo.getStock()+"\", \"price\":\"" + productInfo.getPrice()+"\", \"productImg\":\"" + productInfo.getProductImg()+"\"}";
 		}		
 		
 		return data;

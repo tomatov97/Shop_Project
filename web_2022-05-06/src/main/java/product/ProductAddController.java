@@ -1,6 +1,7 @@
 package product;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,7 @@ public class ProductAddController extends HttpServlet {
 			int stock = Integer.parseInt(mr.getParameter("stock"));
 			int price = Integer.parseInt(mr.getParameter("price"));
 			String productImg = mr.getFilesystemName("productImg");
-			
+			LocalDateTime insertDate = LocalDateTime.now();
 			
 			// 2. 전달받은 값을 검증
 			Validator validator = new Validator();			
@@ -43,7 +44,7 @@ public class ProductAddController extends HttpServlet {
 			else if (!validator.productImgValidator(productImg))	throw new BadParameterException();
 			
 			// 3. 전달받은 값을 하나의 정보로 뭉친다
-			ProductInfo newProductInfo = new ProductInfo(productName, category, stock, price, productImg);
+			ProductInfo newProductInfo = new ProductInfo(productName, category, stock, price, productImg, insertDate);
 			
 			// 4. 새로운 상품의 정보를 DB에 저장한다
 			ProductService service = new ProductService();
