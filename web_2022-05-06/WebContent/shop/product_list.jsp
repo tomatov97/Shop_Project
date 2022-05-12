@@ -21,7 +21,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">
+                <a class="navbar-brand" href="/shoppingmall/index.jsp">
                		<i class="bi bi-hand-index-thumb" id="rightHandLogo"></i>
                		<i class="bi bi-hand-index-thumb" id="leftHandLogo"></i>
                 	µÎµÎ¸ô

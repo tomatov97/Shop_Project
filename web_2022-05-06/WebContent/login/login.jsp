@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/login.css">
     <link href="css/logo.css" rel="stylesheet" />
+    <script src="/shoppingmall/js/jquery-3.6.0.min.js"></script>
 </head>
 <body class="text-center">
     
   <main class="form-signin">
-    <form>
+    <form action="/shoppingmall/member/login" method="post">
       <h1 class="h3 mb-3 fw-normal">
         <i class="bi bi-hand-index-thumb" id="rightHandLogo"></i>
         <i class="bi bi-hand-index-thumb" id="leftHandLogo"></i>
@@ -23,11 +24,11 @@
       </h1>
   
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
         <label for="floatingInput">아이디(이메일)</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pw">
         <label for="floatingPassword">비밀번호</label>
       </div>
   
@@ -37,10 +38,14 @@
         </label>
       </div>
       <button class="w-100 btn btn-lg btn-primary" id="login-btn" type="submit">로그인</button>
-      <button class="w-100 btn btn-lg btn-secondary" type="button">회원가입</button>
+      <button class="w-100 btn btn-lg btn-secondary" id="join-btn" type="button">회원가입</button>
     </form>
   </main>
-  
+  <script>
+  	$("#join-btn").on("click", function(){
+  		location.href="/shoppingmall/join/join.jsp";
+  	})
+  </script>
   </body>
 </html>
 

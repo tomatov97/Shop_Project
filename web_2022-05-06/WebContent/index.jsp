@@ -28,7 +28,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">홈</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/shoppingmall/index.jsp">홈</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">브랜드 소개</a></li>
                         <li class="nav-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">로그인</a></li>
                         <li class="nav-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">회원가입</a></li>
@@ -57,7 +57,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">홈</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                    <p class="lead fw-normal text-white-50 mb-0">With this shop homepage template</p>
                 </div>
             </div>
         </header>
@@ -72,8 +72,8 @@
 			        <h1 class="display-5 fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
 			        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
 			        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-			          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" id="loginBtn">로그인</button>
-			          <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="joinBtn">회원가입</button>
+			          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" id="login-btn">로그인</button>
+			          <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="join-btn">회원가입</button>
 			        </div>
 			      </div>
 			    </div>
@@ -86,14 +86,11 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
         <script type="text/javascript">
-        	let $loginBtn = $("#loginBtn");
-        	let $joinBtn = $("#joinBtn");
-        	
-        	$loginBtn.on("click", function(){
-        		
-        	})
+        	$("#login-btn").on("click", function(){location.href="/shoppingmall/login/login.jsp"});
+        	$("#join-btn").on("click", function(){location.href="/shoppingmall/join/join.jsp"});
+
         </script>
     </body>
 </html>

@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/join.css">
     <link href="../css/logo.css" rel="stylesheet" />
+    <script src="/shoppingmall/js/jquery-3.6.0.min.js"></script>
 </head>
 <body class="text-center">
     
   <main class="form-signin">
-    <form>
+    <form action="/shoppingmall/member/join" method="post">
       <h1 class="h3 mb-3 fw-normal">
     	<i class="bi bi-hand-index-thumb" id="rightHandLogo"></i>
         <i class="bi bi-hand-index-thumb" id="leftHandLogo"></i>
@@ -23,19 +24,19 @@
       </h1>
   
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
         <label for="floatingInput">아이디(이메일)</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pw">
         <label for="floatingPassword">비밀번호</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pwChk">
         <label for="floatingPassword">비밀번호 확인</label>
       </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingName" placeholder="Name">
+        <input type="text" class="form-control" id="floatingName" placeholder="Name" name="name">
         <label for="floatingName">이름</label>
       </div>
       
@@ -82,9 +83,8 @@
         </ul>
       </div>
 
-      <button class="w-100 btn btn-lg btn-secondary" type="button">회원가입</button>
+      <button class="w-100 btn btn-lg btn-secondary" type="submit" id="join-btn">회원가입</button>
     </form>
   </main>
-  
   </body>
 </html>
