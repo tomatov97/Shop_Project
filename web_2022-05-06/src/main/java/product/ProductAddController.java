@@ -8,34 +8,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import exception.BadParameterException;
-import member.MemberService;
 import util.Validator;
-import vo.MemberInfo;
 import vo.ProductInfo;
 
-@WebServlet("/NewProductController")
-public class NewProductController extends HttpServlet {
+@WebServlet("/product/add")
+public class ProductAddController extends HttpServlet {
+	private static final int MAXIMUM_FILE_SIZE = 10 * 1024 * 1024;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.setCharacterEncoding("UTF-8");
-			
 			// 1. 전달받은 값을 꺼낸다
-			String productName = request.getParameter("productName");
-			String category = request.getParameter("category");
-			int stock = Integer.parseInt(request.getParameter("stock"));
-			int price = Integer.parseInt(request.getParameter("price"));
-			String productImg = request.getParameter("productImg");
+			String path = request.getRealPath("images/product");
+						
+			MultipartRequest mr = new MultipartRequest(request, path, MAXIMUM_FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
+			if (mr.getParameter("stock") == null || mr.getParameter("price") == null) throw new BadParameterException();
+			
+			String productName = mr.getParameter("productName");
+			String category = mr.getParameter("category");
+			int stock = Integer.parseInt(mr.getParameter("stock"));
+			int price = Integer.parseInt(mr.getParameter("price"));
+			String productImg = mr.getFilesystemName("productImg");
 			
 			
 			// 2. 전달받은 값을 검증
-			Validator validator = new Validator();
-					
-			if 		(!validator.productNameValidator(productName)) 		throw new BadParameterException();
+			Validator validator = new Validator();			
+			if 		(!validator.productNameValidator(productName)) 	throw new BadParameterException();
 			else if (!validator.categoryValidator(category)) 		throw new BadParameterException();
-			else if (!validator.stockValidator(stock))	throw new BadParameterException();
-			else if (!validator.priceValidator(price))		throw new BadParameterException();
+			else if (!validator.stockValidator(stock))				throw new BadParameterException();
+			else if (!validator.priceValidator(price))				throw new BadParameterException();
 			else if (!validator.productImgValidator(productImg))	throw new BadParameterException();
 			
 			// 3. 전달받은 값을 하나의 정보로 뭉친다

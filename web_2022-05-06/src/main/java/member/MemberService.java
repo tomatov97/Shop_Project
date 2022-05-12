@@ -81,8 +81,7 @@ public class MemberService {
 	}
 	
 	public void updateMemberInfo(MemberInfo memberInfo) {
-		MemberInfoDao dao = new MemberInfoDao();
-		
+		MemberInfoDao dao = new MemberInfoDao();		
 		dao.updateById(memberInfo);
 	}
 	

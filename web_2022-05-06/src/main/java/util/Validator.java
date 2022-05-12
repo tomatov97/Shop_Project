@@ -171,6 +171,6 @@ public class Validator {
 	}
 	
 	public boolean productImgValidator(String productImg) {
-		return false;
+		return true;
 	}
 }

@@ -2,9 +2,15 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import etc.Database;
+import vo.MemberInfo;
+import vo.ProductInfo;
 import vo.ProductInfo;
 
 public class ProductInfoDao {
@@ -37,5 +43,161 @@ public class ProductInfoDao {
 			db.closePstmt(pstmt);
 			db.closeConnection(conn);
 		}
+	}
+	
+	public ProductInfo selectProductById(int id) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ProductInfo productInfo = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM productInfo WHERE productId=?";			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				int productId = id;
+				String productName = rs.getString("productName");
+				String category = rs.getString("category");
+				int stock = rs.getInt("stock");
+				int price = rs.getInt("price");
+				String productImg = rs.getString("productImg");
+
+				productInfo = new ProductInfo(productId, productName, category, stock, price, productImg);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+		return productInfo;
+	}
+	
+	public void deleteProductById(int id) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 3. 쿼리 작성
+			String sql = "DELETE FROM productInfo WHERE productId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+	}
+	
+	public int updateById(ProductInfo productInfo) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 3. 쿼리 작성
+			String sql = "UPDATE productInfo SET productName=?, category=?, stock=?, price=?, productImg=? WHERE productId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(6, productInfo.getProductId());
+			pstmt.setString(1, productInfo.getProductName());
+			pstmt.setString(2, productInfo.getCategory());
+			pstmt.setInt(3, productInfo.getStock());
+			pstmt.setInt(4, productInfo.getPrice());
+			pstmt.setString(5, productInfo.getProductImg());
+			
+			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+			int count = pstmt.executeUpdate();
+			if (count == 1) return 200;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return 400;
+	} 
+	
+	public List<ProductInfo> selectProductListInfo(int pageNumber) {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<ProductInfo> ProductInfoList = new ArrayList<>();
+		
+		try {
+			String sql = "SELECT * FROM productInfo ORDER BY productId DESC LIMIT ?, 5 ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (pageNumber-1)*5);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int productId = rs.getInt("productId");
+				String productName = rs.getString("productName");
+				String category = rs.getString("category");
+				int stock = rs.getInt("stock");
+				int price = rs.getInt("price");
+				String productImg = rs.getString("productImg");
+				
+				ProductInfo nthProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg);
+				
+				ProductInfoList.add(nthProductInfo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+		
+		return ProductInfoList;
+	}
+	
+	public int getAmountOfProduct() {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;
+		
+		int amount = 0;
+		
+		try {
+			String sql = "SELECT COUNT(*) AS amount FROM productInfo";
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			amount = rs.getInt("amount");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}
+		
+		return amount;		
 	}
 }

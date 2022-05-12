@@ -14,7 +14,7 @@ import vo.MemberInfo;
 /**
  * Servlet implementation class MemberInfoDeleteController
  */
-@WebServlet("/MemberInfoDeleteController")
+@WebServlet("/member/delete")
 public class MemberInfoDeleteController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class MemberInfoDeleteController extends HttpServlet {
 		session.invalidate();
 		
 		// 상태 코드 200 설정
-		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 }
