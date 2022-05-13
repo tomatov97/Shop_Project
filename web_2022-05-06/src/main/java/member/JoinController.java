@@ -68,7 +68,6 @@ public class JoinController extends HttpServlet {
 				response.setStatus(status);
 			}
 			
-			
 			// 5-2. 회원 가입에 실패했을 경우 실패 시그널 보냄
 			//  - 아이디나, 이메일, 연락처가 이미 사용 중일 때 : 409
 			//  - 파라미터가 규칙에 맞지 않을 때 : 400
