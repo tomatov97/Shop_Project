@@ -46,12 +46,14 @@ public class ProductUpdateController extends HttpServlet {
 		if (productImg == null) {
 			productImg = mr.getParameter("productImg");
 		}
+		/*
 		String t_insertDate = mr.getParameter("insertDate");
 		
 		t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
 		t_insertDate = t_insertDate.replace(' ', 'T');
 		LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
-								
+		*/
+		
 		// 2. 전달받은 값을 검증
 		Validator validator = new Validator();
 							
@@ -61,7 +63,7 @@ public class ProductUpdateController extends HttpServlet {
 		else if (!validator.priceValidator(price))				throw new BadParameterException();
 		else if (!validator.productImgValidator(productImg))	throw new BadParameterException();
 	
-		ProductInfo ProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
+		ProductInfo ProductInfo = new ProductInfo(productId, productName, category, stock, price, productImg);
 		ProductInfoDao dao = new ProductInfoDao();
 		int status = dao.updateById(ProductInfo);
 		

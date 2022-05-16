@@ -11,6 +11,10 @@ public class ProductInfo {
 	String productImg;
 	LocalDateTime insertDate;
 	
+	public ProductInfo(int productId, String productName, String category, int stock, int price, String productImg) {
+		this(productId, productName, category, stock, price, productImg, LocalDateTime.now());
+	}
+	
 	public ProductInfo(String productName, String category, int stock, int price, String productImg, LocalDateTime insertDate) {
 		this(0, productName, category, stock, price, productImg, insertDate);
 	}
@@ -19,7 +23,7 @@ public class ProductInfo {
 		super();
 		this.productId = productId;
 		this.productName = productName;
-		this.category = category;
+		this.category = category;		
 		this.stock = stock;
 		this.price = price;
 		this.productImg = productImg;

@@ -148,7 +148,7 @@ public class ProductInfoDao {
 		
 		try {
 			String sql = "SELECT * FROM productInfo ORDER BY productId DESC LIMIT ?, ? ";
-			int amountPerPage = 10;
+			int amountPerPage = 8;
 			int startIndex = (pageNumber-1)*amountPerPage;
 			
 			pstmt = conn.prepareStatement(sql);

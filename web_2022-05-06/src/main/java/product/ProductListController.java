@@ -23,7 +23,7 @@ public class ProductListController extends HttpServlet {
 		String data = service.loadProductListToJson(pageNumber);
 		
 		int amount = dao.getAmountOfProduct();
-		int startIndex = (pageNumber-1)*10;
+		int startIndex = (pageNumber-1)*8;
 		if (startIndex >= amount) {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}

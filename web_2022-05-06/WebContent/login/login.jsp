@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../includes/URLs.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
 <body class="text-center">
     
   <main class="form-signin">
-    <form action="/shoppingmall/member/login" method="post">
+    <form action="${LOGIN_SERVLET}" method="post">
       <h1 class="h3 mb-3 fw-normal">
         <i class="bi bi-hand-index-thumb" id="rightHandLogo"></i>
         <i class="bi bi-hand-index-thumb" id="leftHandLogo"></i>
@@ -41,10 +42,38 @@
       <button class="w-100 btn btn-lg btn-secondary" id="join-btn" type="button">회원가입</button>
     </form>
   </main>
+  <script src="../js/jquery-3.6.0.min.js"></script>
   <script>
   	$("#join-btn").on("click", function(){
   		location.href="/shoppingmall/join/join.jsp";
+  	})  	
+
+  	$("#login-btn").on("click", function(event){
+  		event.preventDefault();
+  		
+  		let $id = $("#floatingInput");
+  		let $pw = $("#floatingPassword");
+  		
+  		let id = $id.val();
+  		let pw = $pw.val();
+  		
+  	  	$.ajax({
+  	  		url : "http://localhost/shoppingmall/member/login",
+  			type : "post",
+  			data : "id="+id+"&pw="+pw,
+  			success : function(){
+  				location.href="http://localhost/shoppingmall/index.jsp";
+  			},
+  			error : function(response){
+  				if (response.status == 401) {
+  					alert("아이디와 비밀번호를 확인하세요.");
+  				} else if (response.status == 400) {
+  					alert("아이디와 비밀번호를 정확하게 입력하세요.");
+  				}
+  			}
+  	  	})  		
   	})
+
   </script>
   </body>
 </html>

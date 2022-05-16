@@ -30,6 +30,9 @@ public class ProductAddController extends HttpServlet {
 			
 			String productName = mr.getParameter("productName");
 			String category = mr.getParameter("category");
+			if (category.equals("notebook")) category = "노트북";
+			else if (category.equals("tablet")) category = "테블릿";
+			else if	(category.equals("smartphone")) category = "스마트폰";
 			int stock = Integer.parseInt(mr.getParameter("stock"));
 			int price = Integer.parseInt(mr.getParameter("price"));
 			String productImg = mr.getFilesystemName("productImg");
@@ -51,6 +54,8 @@ public class ProductAddController extends HttpServlet {
 			// 5-1. 회원 가입에 성공했을 경우 성공 시그널 보냄
 			int status = service.insert(newProductInfo);
 			response.setStatus(status);
+			
+			response.sendRedirect("/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber=1");
 		
 			
 			// 5-2. 상품 등록에 실패했을 경우 실패 시그널 보냄

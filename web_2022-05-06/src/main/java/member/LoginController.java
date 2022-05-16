@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 			// 4-1. 로그인 여부 확인 후, 성공시 로그인 유저 정보를 세션에 저장, 200으로 응답
 			// 4-2. 로그인 실패시:
 			// 		4-2-1. 전달받은 값이 규칙에 맞지 않을 때 : 400으로 응답
-			//		4-2-2. 아이디 또는 비밀번호가 틀렸을 때 : 409로 응답
+			//		4-2-2. 아이디 또는 비밀번호가 틀렸을 때 : 401로 응답
 			MemberService service = new MemberService();
 			if (service.isLogin(loginInfo)) {
 				HttpSession session = request.getSession();

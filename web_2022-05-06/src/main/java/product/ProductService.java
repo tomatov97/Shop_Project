@@ -32,7 +32,7 @@ public class ProductService {
 			int stock = productInfo.getStock();
 			int price = productInfo.getPrice();
 			String productImg = productInfo.getProductImg();
-			String product = "{\"productName\":" + productName + ", \"category\":\"" + category + "\",\"stock\":\"" + stock +  "\",\"price\":\"" + price + "\", \"productImg\":\"" + productImg + "\"}";
+			String product = "{\"productName\":\"" + productName + "\", \"category\":\"" + category + "\",\"stock\":" + stock +  ",\"price\":" + price + ", \"productImg\":\"" + productImg + "\"}";
 			productTempList.add(product);
 		}
 		String data = "{\"productList\":" + productTempList + ", \"amount\":" + amount + "}";
