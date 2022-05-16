@@ -119,34 +119,84 @@
   		// 사용자가 입력한 값 검증
   		// (회원가입 서블릿에서 정규표현식으로 검증했듯, 자바스크립트에도 정규표현식이 있음)
   		// 1. id 검증
-		let $id = $("#floatingInput");
-  		if ($id.val() =="") {
+		let id = $("#floatingInput").val();
+  		let regId = "^[a-zA-Z0-9]{4,10}$";
+  		let lower = ".*[a-z].*";
+  		let upper = ".*[A-Z].*";
+  		let number = ".*[0-9].*";
+  		if (id =="") {
   			alert("아이디를 입력하세요.")
+  			return;
+  		} else if (!regId.test(id) || !lower.test(id) || !upper.test(id) || number.test(id)) {
+  			alert("아이디가 올바르지 않습니다.")
   			return;
   		}
   		
   		// 2. pw 검증
-  		let $pw = $("#floatingPassword")	
-  	
+  		let pw = $("#floatingPassword").val();  
+  		let regPw = "^[a-zA-Z0-9]{6,16}$";
+  		if (pw =="") {
+  			alert("비밀번호를 입력하세요.")
+  			return;
+  		} else if (!regPw.test(pw) || !lower.test(pw) || !upper.test(pw) || number.test(pw)) {
+  			alert("비밀번호가 올바르지 않습니다.")
+  			return;
+  		}
   		// 3. pwChk 검증
-  		let $pwChk = $("#floatingPasswordCheck")
+  		let pwChk = $("#floatingPasswordCheck").val();
+  		if (pwChk =="") {
+  			alert("비밀번호 확인을 입력하세요.")
+  			return;
+  		} else if (!(pwChk==pw)) {
+  			alert("비밀번호 확인 값이 비밀번호와 일치하지 않습니다.")
+  			return;
+  		}
   		// 4. name
-  		let $name = $("#floatingName")
+  		let name = $("#floatingName").val();
+  		let regName = "^[가-힣]{3}$";
+  		if (name =="") {
+  			alert("이름을 입력하세요.")
+  			return;
+  		} else if (!regName.test(name)) {
+  			alert("이름이 올바르지 않습니다.")
+  			return;
+  		}
   		// 5. tel
-  		let $tel = $("#floatingTel")
+  		let tel = $("#floatingTel").val();
+  		let regTel = "\\d{3}-\\d{4}-\\d{4}";
+  		if (tel =="") {
+  			alert("전화번호를 입력하세요.")
+  			return;
+  		} else if (!regTel.test(tel)) {
+  			alert("전화번호가 올바르지 않습니다.")
+  			return;
+  		}
   		// 6. addr
-  		let $addr = $("#floatingAddr")
-  		// 7. email
-  		let $email = $("#floatingEmail")
-  		
-  		let id = $id.val();
-  		let pw = $pw.val();
-  		let pwChk = $pwChk.val();
-  		let name = $name.val();
-  		let tel = $tel.val();
-  		let addr = $addr.val();
-  		let email = $email.val();
+  		let addr = $("#floatingAddr").val();
+  		let valAddr = false;
+  		let cityList = {"서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시",
+				"울산광역시", "세종특별자치시", "경기도", "충청북도", "충청남도", "전라북도",
+				"전라남도", "경상북도", "경상남도", "제주특별자치도"};
+  		for (let city : cityList) {
+			if (addr == city) { valAddr = true; } 
+		}
+  		if (addr =="") {
+  			alert("주소를 입력하세요.")
+  			return;
+  		} else if (!valAddr) {
+  			alert("주소가 올바르지 않습니다.")
+  			return;
+  		}
 
+  		// 7. email
+  		let email = $("#floatingEmail").val();
+  		if (email =="") {
+  			alert("이메일을 입력하세요.")
+  			return;
+  		} else if (!email.contains("@")) {
+  			alert("이메일이 올바르지 않습니다.")
+  			return;
+  		}
   		// 사용자가 값을 모두 정상적으로 입력했다면
   		$.ajax({
   			url : JOIN_SERVLET,
