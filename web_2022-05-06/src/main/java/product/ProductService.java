@@ -27,12 +27,13 @@ public class ProductService {
 		int amount = dao.getAmountOfProduct();
 		
 		for(ProductInfo productInfo : productInfoList) {
+			int productId = productInfo.getProductId();
 			String productName = productInfo.getProductName();
 			String category = productInfo.getCategory();
 			int stock = productInfo.getStock();
 			int price = productInfo.getPrice();
 			String productImg = productInfo.getProductImg();
-			String product = "{\"productName\":\"" + productName + "\", \"category\":\"" + category + "\",\"stock\":" + stock +  ",\"price\":" + price + ", \"productImg\":\"" + productImg + "\"}";
+			String product = "{\"productId\":"+ productId+ ", \"productName\":\"" + productName + "\", \"category\":\"" + category + "\",\"stock\":" + stock +  ",\"price\":" + price + ", \"productImg\":\"" + productImg + "\"}";
 			productTempList.add(product);
 		}
 		String data = "{\"productList\":" + productTempList + ", \"amount\":" + amount + "}";

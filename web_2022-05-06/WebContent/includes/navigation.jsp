@@ -15,24 +15,6 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/shoppingmall?active=home">홈</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">브랜드 소개</a></li>
                         
-                        <%-- 로그인을 하지 않은 상태 --%>
-                        <c:if test="${loginUserInfo eq null}">
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">로그인</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">회원가입</a></li>
-                        </c:if>
-                                                
-                        <%-- 로그인을 한 상태 --%>
-                        <c:if test="${loginUserInfo ne null}">
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">회원 정보 수정</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">회원 탈퇴</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">로그아웃</a></li>   
-                        </c:if>
-                        
-                        <c:if test="${loginUserInfo.id eq 'Admin1'}">
-                        <li class="nav-item"><a class="nav-link" href="/shoppingmall/manager/product_form.jsp">상품 추가</a></li>
-                        </c:if>
-                        
-                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">쇼핑</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,14 +24,33 @@
                                 <li><a class="dropdown-item" href="#!">새로운 상품</a></li>
                             </ul>
                         </li>
+                        
+                        <li class="nav-item dropdown" >
+                          <div class="dropdown text-end">
+				          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+				            <i class="bi bi-person-circle" style="font-size : 25px" alt="mdo" width="32" height="32" class="rounded-circle"></i>
+				          </a>
+				          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+				          	<%-- 로그인을 하지 않은 상태 --%>
+	                        <c:if test="${loginUserInfo eq null}">
+		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">로그인</a></li>
+		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">회원가입</a></li>
+	                        </c:if>
+	                                                
+	                        <%-- 로그인을 한 상태 --%>
+	                        <c:if test="${loginUserInfo ne null}">
+		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">회원 정보 수정</a></li>
+		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">로그아웃</a></li>   
+	                        </c:if>
+	                        
+	                        <c:if test="${loginUserInfo.id eq 'Admin1234'}">
+	                        	<li class="dropdown-item"><a class="nav-link" href="/shoppingmall/manager/product_form.jsp">상품 추가</a></li>
+	                        </c:if>
+				          </ul>
+				        </div>
+                        </li>
                     </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            장바구니
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+
                 </div>
             </div>
         </nav>

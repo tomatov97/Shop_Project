@@ -78,13 +78,13 @@
         			
         			let pageCount = Math.ceil(amount/8);
         			for(let count=1; count<=pageCount; count++) {
-        				$("ul.pagenation").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber="+count+"\">"+count+"</a></li>");
+        				$("ul.pagination").append("<li class=\"page-item\"><a class=\"page-link\" href=\"/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber="+count+"\">"+count+"</a></li>");
         			}
         			
         			let tag = "<div class=\"col mb-5\">" +
                     "<div class=\"card h-100\">" +
                     <!-- Product image-->
-                    "<img class=\"card-img-top\" src=\"(1)\" alt=\"...\" />" +
+                    "<img class=\"card-img-top\" src=\"/shoppingmall/images/product/(1)\" alt=\"...\" />" +
                     <!-- Product details-->
                     "<div class=\"card-body p-4\">" +
                         "<div class=\"text-center\">" +
@@ -102,7 +102,7 @@
                     <!-- Product actions-->
                     "<div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">"+
                         "<div class=\"text-center\">"+
-                        	"<a class=\"btn btn-outline-dark mt-auto\" href=\"#\">상세 정보</a>"+
+                        	"<a class=\"btn btn-outline-dark mt-auto\" href=\"/shoppingmall/shop/product_detail.jsp?active=product_detail&productId=(4)\">상세 정보</a>"+
                         	"<a class=\"btn btn-outline-dark mt-auto\" href=\"#\">카드에 담기</a>"+
                         "</div>"+
                     "</div>"+
@@ -112,9 +112,10 @@
 						let nthProduct = productList[i];
 						console.log(nthProduct);
 						
-						let nthTag = tag.replace("(1)", nthProduct.img);
+						let nthTag = tag.replace("(1)", nthProduct.productImg);
 						nthTag = nthTag.replace("(2)", nthProduct.productName);
 						nthTag = nthTag.replace("(3)", nthProduct.price);
+						nthTag = nthTag.replace("(4)", nthProduct.productId);
 						
 						$("#product_list_wrapper").append(nthTag);
 					}

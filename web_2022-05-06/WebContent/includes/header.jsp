@@ -10,6 +10,12 @@
 	<c:when test="${param.active eq 'product_add' }">
 	<c:set var="header_title" value="상품 추가"/>
 	</c:when>
+	<c:when test="${param.active eq 'product_update' }">
+	<c:set var="header_title" value="상품 수정"/>
+	</c:when>
+	<c:when test="${param.active eq 'product_detail' }">
+	<c:set var="header_title" value="상품 정보"/>
+	</c:when>
 </c:choose>
 
 <!DOCTYPE html>

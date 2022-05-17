@@ -39,6 +39,9 @@ public class ProductUpdateController extends HttpServlet {
 		int productId = Integer.parseInt(mr.getParameter("productId"));
 		String productName = mr.getParameter("productName");
 		String category = mr.getParameter("category");
+		if (category.equals("notebook")) category = "노트북";
+		else if (category.equals("tablet")) category = "테블릿";
+		else if	(category.equals("smartphone")) category = "스마트폰";
 		int stock = Integer.parseInt(mr.getParameter("stock"));
 		int price = Integer.parseInt(mr.getParameter("price"));
 		// getFileName() 메서드 : 해당 파일이 실제로 저장되어 있는 이름을 꺼내준다.
