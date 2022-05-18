@@ -67,6 +67,7 @@ public class ProductInfoDao {
 				int stock = rs.getInt("stock");
 				int price = rs.getInt("price");
 				String productImg = rs.getString("productImg");
+				productImg = productImg == null ? "" : productImg;
 				String t_insertDate = rs.getString("insertDate");
 				
 				t_insertDate = t_insertDate.substring(0, t_insertDate.indexOf('.'));
@@ -114,15 +115,14 @@ public class ProductInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "UPDATE productInfo SET productName=?, category=?, stock=?, price=?, productImg=? WHERE productId=?";
+			String sql = "UPDATE productInfo SET productName=?, category=?, stock=?, price=? WHERE productId=?";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(6, productInfo.getProductId());
+			pstmt.setInt(5, productInfo.getProductId());
 			pstmt.setString(1, productInfo.getProductName());
 			pstmt.setString(2, productInfo.getCategory());
 			pstmt.setInt(3, productInfo.getStock());
 			pstmt.setInt(4, productInfo.getPrice());
-			pstmt.setString(5, productInfo.getProductImg());
 			
 			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
 			int count = pstmt.executeUpdate();
@@ -226,6 +226,32 @@ public class ProductInfoDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
+					
+			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+			int count = pstmt.executeUpdate();
+			if (count == 1) return 200;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}	
+		return 400;
+	}
+	
+	public int deleteImg(int id) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 3. 쿼리 작성
+			String sql = "UPDATE productInfo SET productImg=? WHERE productId=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, null);
+			pstmt.setInt(2, id);
 					
 			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
 			int count = pstmt.executeUpdate();

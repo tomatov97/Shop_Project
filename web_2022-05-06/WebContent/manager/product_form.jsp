@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="controller" value="/shoppingmall/product/add" />
-<c:set var="btn_title" value="상품 등록" />
-
-<c:if test="${param.active eq 'product_update'}">
-	<c:set var="controller" value="/shoppingmall/product/update" />
-	<c:set var="btn_title" value="상품 수정" />
-</c:if>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +29,7 @@
             <div class="container col-xxl-8 px-4 py-5">
                 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                   <div class="col-lg">
-                    <form action="${controller }" method="post" enctype="multipart/form-data">
+                    <form action="/shoppingmall/product/add" method="post" enctype="multipart/form-data">
                     	<input type="hidden" name="productId" value="${param.productId }">
                     	
                         <div class="input-group input-group-lg" id="product_name_wrapper">
@@ -73,7 +66,7 @@
                             <textarea class="form-control" aria-label="With textarea"></textarea>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                      		<button type="submit" class="btn btn-primary btn-lg px-4 me-md-2" id="submit-btn">${btn_title }</button>
+                      		<button type="submit" class="btn btn-primary btn-lg px-4 me-md-2" id="submit-btn">상품 등록</button>
                     	</div>
                     </form>                    
                   </div>
@@ -87,49 +80,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-        <script src="../js/functions.js"></script>
-        <script src="../js/URLs.js"></script>
-        <script src="../js/jquery-3.6.0.min.js"></script>
-        <script>   
-        let productId = getParameter("productId");
-        console.log("productId="+productId);
-        if (productId != null) {
-        	
-            $.ajax({
-            	url: "/shoppingmall/product/detail",
-            	type: "get",
-            	data: "productId="+productId,
-            	dataType: "json",
-            	success: function(productInfo){
-            		let productName = productInfo.productName;
-            		let category = productInfo.category;
-            		if (category == "노트북") category = "notebook";
-            		else if (category == "스마트폰") category = "smartphone";
-            		else if (category == "테블릿") category = "tablet";
-            		let stock = productInfo.stock;
-            		let price = productInfo.price;
-            		let productImg = productInfo.productImg;
-            		console.log(productImg);
-
-            		$("input[name=productName]").val(productName);
-            		$("select[name=category]").val(category);
-            		$("input[name=stock]").val(stock);
-            		$("input[name=price]").val(price);
-            		// 상품에 등록된 이미지가 있을 때에는 이미지 경로만 출력하고
-            		// 이미지 경로 옆에 이미지 삭제 버튼을 추가
-            		if (productImg != null) {
-            			$("#inputGroupFile01").css("display","none");
-                		$("#product_file_wrapper").append("<span class=\"product_file_path\">" + productImg + "</span>");
-                		$("#product_file_wrapper").append("<button type=\"submit\" class=\"btn btn-secondary btn-lg px-4 me-md-2\">삭제</button>");
-            		}            		
-            	},
-            	error: function(){
-            		
-            	}
-            })
-        }
-
-        </script>
+        <script src="../js/scripts.js"></script>      
     </body>
 </html>

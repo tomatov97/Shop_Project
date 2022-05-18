@@ -10,9 +10,12 @@ public class ProductInfo {
 	int price;
 	String productImg;
 	LocalDateTime insertDate;
+	public ProductInfo(int productId, String productName, String category, int stock, int price) {
+		this(productId, productName, category, stock, price, null, LocalDateTime.now());
+	}
 	
 	public ProductInfo(int productId, String productName, String category, int stock, int price, String productImg) {
-		this(productId, productName, category, stock, price, productImg, LocalDateTime.now());
+		this(productId, productName, category, stock, price, productImg, null);
 	}
 	
 	public ProductInfo(String productName, String category, int stock, int price, String productImg, LocalDateTime insertDate) {

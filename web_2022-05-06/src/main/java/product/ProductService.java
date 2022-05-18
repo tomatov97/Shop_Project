@@ -1,11 +1,10 @@
 package product;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import dao.ProductInfoDao;
-import dao.ProductInfoDao;
-import vo.ProductInfo;
 import vo.ProductInfo;
 
 public class ProductService {
@@ -64,4 +63,5 @@ public class ProductService {
 		
 		return data;
 	}
+	
 }
