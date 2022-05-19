@@ -169,16 +169,43 @@ public class MemberInfoDao {
 		
 		try {
 			// 3. 쿼리 작성
-			String sql = "UPDATE memberInfo SET pw=?, name=?, tel=?, addr=?, email=? WHERE id=?";
+			// String sql = "UPDATE memberInfo SET pw=?, name=?, tel=?, addr=?, email=? WHERE id=?";
+			String sql = "UPDATE memberInfo SET name=?, tel=?, addr=?, email=? WHERE id=?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(6, memberInfo.getId());
-			pstmt.setString(1, memberInfo.getPw());
-			pstmt.setString(2, memberInfo.getName());
-			pstmt.setString(3, memberInfo.getTel());
-			pstmt.setString(4, memberInfo.getAddr());
-			pstmt.setString(5, memberInfo.getEmail());
+			pstmt = conn.prepareStatement(sql);			
+			// pstmt.setString(1, memberInfo.getPw());
+			pstmt.setString(1, memberInfo.getName());
+			pstmt.setString(2, memberInfo.getTel());
+			pstmt.setString(3, memberInfo.getAddr());
+			pstmt.setString(4, memberInfo.getEmail());
+			pstmt.setString(5, memberInfo.getId());
 			
+			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closePstmt(pstmt);
+			db.closeConnection(conn);
+		}		
+	}
+	
+	public void updatePasswordById(String id, String newPw) {
+		Database db = new Database();		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		
+		try {
+			// 3. 쿼리 작성
+			// String sql = "UPDATE memberInfo SET pw=?, name=?, tel=?, addr=?, email=? WHERE id=?";
+			String sql = "UPDATE memberInfo SET pw=? WHERE id=?";
+			
+			pstmt = conn.prepareStatement(sql);			
+			// pstmt.setString(1, memberInfo.getPw());
+			pstmt.setString(1, newPw);
+			pstmt.setString(2, id);
+
 			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
 			pstmt.executeUpdate();
 

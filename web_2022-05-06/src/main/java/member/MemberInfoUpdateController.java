@@ -20,7 +20,7 @@ public class MemberInfoUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
-			String pw = request.getParameter("pw");
+			// String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String tel = request.getParameter("tel");
 			String addr = request.getParameter("addr");
@@ -31,23 +31,24 @@ public class MemberInfoUpdateController extends HttpServlet {
 			String id = loginUserInfo.getId();
 			
 			Validator validator = new Validator();
-			if 		(!validator.pwValidator(pw)) 	 	throw new BadParameterException();
-			else if (!validator.nameValidator(name)) 	throw new BadParameterException();
+			// if 		(!validator.pwValidator(pw)) 	 	throw new BadParameterException();
+			if (!validator.nameValidator(name)) 		throw new BadParameterException();
 			else if (!validator.telValidator(tel)) 	 	throw new BadParameterException();
 			else if (!validator.addrValidator(addr)) 	throw new BadParameterException();
 			else if (!validator.emailValidator(email)) 	throw new BadParameterException();
 			
-			MemberService service = new MemberService();		
+			MemberService service = new MemberService();
+			MemberInfo memberInfo = new MemberInfo();
 			if (!service.isAlreadyTelorEmail(id, tel, email)) {
-				MemberInfo memberInfo = new MemberInfo();
 				memberInfo.setId(id);
-				memberInfo.setPw(pw);
+				// memberInfo.setPw(pw);
 				memberInfo.setName(name);
 				memberInfo.setTel(tel);
 				memberInfo.setAddr(addr);
 				memberInfo.setEmail(email);
 				
-				service.updateMemberInfo(memberInfo);
+				MemberInfoDao dao = new MemberInfoDao();		
+				dao.updateById(memberInfo);
 				response.setStatus(HttpServletResponse.SC_OK);
 			}			
 			

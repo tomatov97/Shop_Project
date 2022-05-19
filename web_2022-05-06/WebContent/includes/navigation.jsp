@@ -39,7 +39,7 @@
 	                                                
 	                        <%-- 로그인을 한 상태 --%>
 	                        <c:if test="${loginUserInfo ne null}">
-		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/login/login.jsp">회원 정보 수정</a></li>
+		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/member/form.jsp">회원 정보 수정</a></li>
 		                        <li class="dropdown-item"><a class="nav-link" href="/shoppingmall/join/join.jsp">로그아웃</a></li>   
 	                        </c:if>
 	                        

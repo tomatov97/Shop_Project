@@ -53,8 +53,8 @@ public class MemberService {
 	public boolean isAlreadyTelorEmail(String id, String tel, String email) {
 		MemberInfoDao dao = new MemberInfoDao();
 		MemberInfo oldMemberInfo = dao.selectMemberById(id);
-		boolean isAlreadyEmail = true;
-		boolean isAlreadyTel = true;
+		boolean isAlreadyEmail = false;
+		boolean isAlreadyTel = false;
 		
 		// 회원 정보를 수정할때 연락처를 바꾼다면 연락처 중복 여부를 체크
 		if (!tel.equals(oldMemberInfo.getTel())) {
@@ -89,6 +89,29 @@ public class MemberService {
 		MemberInfoDao dao = new MemberInfoDao();
 		dao.deleteMemberInfoById(id);
 	}
-
-
+	
+	public String loadMemberInfoById (String id) {
+		MemberInfoDao dao = new MemberInfoDao();
+		MemberInfo memberInfo = dao.selectMemberById(id);
+		String data = null;
+		
+		if(memberInfo != null) {
+			data = "{\"id\":\"(1)\", \"pw\": \"(2)\", \"name\":\"(3)\", \"tel\":\"(4)\", \"addr\":\"(5)\", \"email\":\"(6)\"}";
+			
+			String pw = memberInfo.getPw() == null ? "" : memberInfo.getPw();
+			String name = memberInfo.getName() == null ? "" : memberInfo.getName();
+			String tel = memberInfo.getTel() == null ? "" : memberInfo.getTel();
+			String addr = memberInfo.getAddr() == null ? "" : memberInfo.getAddr();
+			String email = memberInfo.getEmail() == null ? "" : memberInfo.getEmail();
+			
+			data = data.replace("(1)", memberInfo.getId());
+			data = data.replace("(2)", pw);
+			data = data.replace("(3)", name);
+			data = data.replace("(4)", tel);
+			data = data.replace("(5)", addr);
+			data = data.replace("(6)", email);
+		}
+		
+		return data;
+	}	
 }
