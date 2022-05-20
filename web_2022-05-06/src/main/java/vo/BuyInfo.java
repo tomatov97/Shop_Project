@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 
 public class BuyInfo {
 	private String paymentMethod;
-	private int memberId;
+	private int memberIdx;
 	private int productId;
 	private LocalDateTime buyDate;
 	
-	public BuyInfo(String paymentMethod, int memberId, int productId, LocalDateTime buyDate) {
+	public BuyInfo(String paymentMethod, int memberIdx, int productId, LocalDateTime buyDate) {
 		super();
 		this.paymentMethod = paymentMethod;
-		this.memberId = memberId;
+		this.memberIdx = memberIdx;
 		this.productId = productId;
 		this.buyDate = buyDate;
 	}
@@ -28,11 +28,11 @@ public class BuyInfo {
 	public void setPaymentMethod(String paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
-	public int getMemberId() {
-		return memberId;
+	public int getMemberIdx() {
+		return memberIdx;
 	}
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setMemberId(int memberIdx) {
+		this.memberIdx = memberIdx;
 	}
 	public int getProductId() {
 		return productId;

@@ -51,6 +51,29 @@
         <script src="../js/functions.js"></script>
         <script src="../js/URLs.js"></script>
         <script src="../js/jquery-3.6.0.min.js"></script>
+        <script>
+	        let productId = getParameter("productId");
+	     	$("#update-btn").on("click", function(){
+	        	location.href="/shoppingmall/manager/product_form2.jsp?active=product_update&productId="+productId;
+	        });
+	        
+			$("#delete-btn").on("click", function(){
+				$.ajax({
+		        	url: "/shoppingmall/product/delete",
+		        	type: "post",
+		        	data: "productId="+productId,
+		        	success: function(){
+		        		alert("상품이 삭제되었습니다.");
+		        		location.href="/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber=1"
+		        	},
+		        	error: function(){
+		        		alert("상품이 삭제되지 않았습니다.");
+		        	}
+		        })
+	
+	        });            
+        </script>
+        <!-- 로그인을 하지 않고 구매 -->
         <c:if test="${loginUserInfo eq null}">
         	<script type="text/javascript">
         		$("#buy-btn").on("click", function(){
@@ -59,35 +82,16 @@
         		})
         	</script>
         </c:if>
+        <!-- 로그인을 하고 구매 -->
         <c:if test="${loginUserInfo ne null}">
         	<script type="text/javascript">
+	        	let userId = "${loginUserInfo.id}";
         		$("#buy-btn").on("click", function(){
-        			alert("구현 예정 기능입니다.");
+        			location.href="/shoppingmall/buy/form.jsp?active=buy&productId="+productId;
         		})
         	</script>
         </c:if>
-        <script>
-        let productId = getParameter("productId");
-     	$("#update-btn").on("click", function(){
-        	location.href="/shoppingmall/manager/product_form2.jsp?active=product_update&productId="+productId;
-        });
         
-		$("#delete-btn").on("click", function(){
-			$.ajax({
-	        	url: "/shoppingmall/product/delete",
-	        	type: "post",
-	        	data: "productId="+productId,
-	        	success: function(){
-	        		alert("상품이 삭제되었습니다.");
-	        		location.href="/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber=1"
-	        	},
-	        	error: function(){
-	        		alert("상품이 삭제되지 않았습니다.");
-	        	}
-	        })
-
-        });            
-        </script>
         
         <script>
         $.ajax({

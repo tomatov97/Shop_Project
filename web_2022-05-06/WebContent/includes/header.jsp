@@ -16,6 +16,9 @@
 	<c:when test="${param.active eq 'product_detail' }">
 	<c:set var="header_title" value="상품 정보"/>
 	</c:when>
+	<c:when test="${param.active eq 'buy' }">
+	<c:set var="header_title" value="구매"/>
+	</c:when>
 </c:choose>
 
 <!DOCTYPE html>

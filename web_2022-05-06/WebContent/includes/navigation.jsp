@@ -18,7 +18,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">쇼핑</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/shoppingmall/shop/product_list.jsp?active=product_list&pageNumber=1">모든 상품</a></li>
+                                <li><a class="dropdown-item" href="/shoppingmall/product/list?pageNumber=1">모든 상품</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">인기 상품</a></li>
                                 <li><a class="dropdown-item" href="#!">새로운 상품</a></li>

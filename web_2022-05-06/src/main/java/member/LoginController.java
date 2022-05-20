@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MemberInfoDao;
 import exception.BadParameterException;
 import util.Validator;
 import vo.MemberInfo;
@@ -40,7 +41,10 @@ public class LoginController extends HttpServlet {
 			// 		4-2-1. 전달받은 값이 규칙에 맞지 않을 때 : 400으로 응답
 			//		4-2-2. 아이디 또는 비밀번호가 틀렸을 때 : 401로 응답
 			MemberService service = new MemberService();
-			if (service.isLogin(loginInfo)) {
+			if (service.selectLoginInfo(loginInfo) != null) {
+				
+				loginInfo = service.selectLoginInfo(loginInfo);
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUserInfo", loginInfo);
 				response.setStatus(HttpServletResponse.SC_OK);

@@ -67,16 +67,16 @@ public class MemberService {
 		return isAlreadyTel || isAlreadyEmail;
 	}
 	
-	public boolean isLogin(MemberInfo loginInfo) {
+	public MemberInfo selectLoginInfo(MemberInfo loginInfo) {
 		MemberInfoDao dao = new MemberInfoDao();
 		MemberInfo memberInfo = dao.selectMemberById(loginInfo.getId());
 		
 		if (memberInfo == null) {
-			return false;
+			return null;
 		} else {
 			if (!loginInfo.getPw().equals(memberInfo.getPw())) {
-				return false;
-			} else return true;
+				return null;
+			} else return memberInfo;
 		}
 	}
 	

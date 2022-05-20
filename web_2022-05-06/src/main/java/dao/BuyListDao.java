@@ -20,7 +20,7 @@ public class BuyListDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, buyInfo.getPaymentMethod());
-			pstmt.setInt(2, buyInfo.getMemberId());
+			pstmt.setInt(2, buyInfo.getMemberIdx());
 			pstmt.setInt(3, buyInfo.getProductId());
 			pstmt.setString(4, buyInfo.getBuyDate().toString());
 			
