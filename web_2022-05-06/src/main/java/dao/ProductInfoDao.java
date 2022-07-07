@@ -75,10 +75,8 @@ public class ProductInfoDao {
 				LocalDateTime insertDate = LocalDateTime.parse(t_insertDate);
 
 				productInfo = new ProductInfo(productId, productName, category, stock, price, productImg, insertDate);
-			}
-			
+			}			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			db.closePstmt(pstmt);
@@ -93,13 +91,10 @@ public class ProductInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			// 3. 쿼리 작성
-			String sql = "DELETE FROM productInfo WHERE productId=?";
-			
+			String sql = "DELETE FROM productInfo WHERE productId=?";			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -180,8 +175,7 @@ public class ProductInfoDao {
 			db.closeResultSet(rs);
 			db.closePstmt(pstmt);
 			db.closeConnection(conn);
-		}
-		
+		}		
 		return ProductInfoList;
 	}
 	
@@ -246,14 +240,12 @@ public class ProductInfoDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			// 3. 쿼리 작성
 			String sql = "UPDATE productInfo SET productImg=? WHERE productId=?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, null);
 			pstmt.setInt(2, id);
-					
-			// 4. stmt 를 통해서 쿼리 실행 및 결과 전달
+
 			int count = pstmt.executeUpdate();
 			if (count == 1) return 200;
 

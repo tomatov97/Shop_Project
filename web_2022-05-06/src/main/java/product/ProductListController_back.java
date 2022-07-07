@@ -27,7 +27,7 @@ public class ProductListController_back extends HttpServlet {
 		if (startIndex >= amount) {
 			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		}
-		// JOSN을 전달한다.
+		// JSON을 전달한다.
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
